@@ -2,9 +2,9 @@
 
 const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString } = require('graphql');
 
+// TaskType
 const TaskType = new GraphQLObjectType({
   name: 'Task',
-  description: 'This represents a Task',
   fields: () => ({
     id: { type: GraphQLString },
     title: { type: GraphQLString },
@@ -13,4 +13,19 @@ const TaskType = new GraphQLObjectType({
   })
 });
 
-module.exports = { TaskType };
+// RootQuert for the TaskType
+const RootQuery = new GraphQLObjectType({
+  name: 'RootQueryType',
+  fields: {
+    task: {
+      type: TaskType,
+      args: { id: { type: GraphQLString } },
+      resolve(parent, args) {
+      }
+    }
+  }
+});
+
+module.exports = new GraphQLSchema({
+  query: RootQuery
+});
