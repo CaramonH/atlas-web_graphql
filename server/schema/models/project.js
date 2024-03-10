@@ -5,7 +5,7 @@ const projectSchema = new Schema({
   title: String,
   weight: Number,
   description: String,
-  projectId: Number
+  projectId: String
 });
 
 module.exports = mongoose.model('Project', projectSchema);

@@ -1,11 +1,11 @@
 // Set up Schema and require GraphQL
 
-const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID, GraphQLList } = require('graphql');
+const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull } = require('graphql');
 const _ = require('lodash');
 
 // Task 7 - task and project schema setup
-const Project = require('../models/project');
-const Task = require('../models/task');
+const Project = require('./models/project');
+const Task = require('./models/task');
 
 // Tasks Dummy Data
 const tasks = [
@@ -28,7 +28,7 @@ const TaskType = new GraphQLObjectType({
     weight: { type: GraphQLInt },
     description: { type: GraphQLString },
     project: {
-      type: ProjectType,
+      type: ProjectType, // Moved this here
       resolve(parent, args) {
         return _.find(projects, { id: parent.projectId });
       },

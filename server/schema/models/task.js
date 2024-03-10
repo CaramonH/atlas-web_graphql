@@ -5,7 +5,7 @@ const taskSchema = new Schema({
   title: String,
   weight: Number,
   description: String,
-  projectId: Number
+  projectId: String
 });
 
 module.exports = mongoose.model('Task', taskSchema);
