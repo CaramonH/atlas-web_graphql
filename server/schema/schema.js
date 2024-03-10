@@ -1,15 +1,15 @@
 // Set up Schema and require GraphQL
 
-const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID } = require('graphql');
+const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID, GraphQLList } = require('graphql');
 const _ = require('lodash');
 
-// Task 2 - Dummy Data
+// Tasks Dummy Data
 const tasks = [
   { id: '1', title: 'Create your first webpage', weight: 1, description: 'Create your first HTML file 0-index.html with: -Add the doctype on the first line (without any comment) -After the doctype, open and close a html tag Open your file in your browser (the page should be blank)' },
   { id: '2', title: 'Structure your webpage', weight: 1, description: 'Copy the content of 0-index.html into 1-index.html Create the head and body sections inside the html tag, create the head and body tags (empty) in this order' },
 ];
 
-// Task 3 - Dummy Data
+// Project Dummy Data
 const projects = [
   { id: '1', title: 'Advanced HTML', weight: 1, description: 'Welcome to the Web Stack specialization...' },
   { id: '2', title: 'Bootstrap', weight: 1, description: 'Bootstrap is a free and open-source CSS framework...' },
@@ -23,16 +23,24 @@ const TaskType = new GraphQLObjectType({
     title: { type: GraphQLString },
     weight: { type: GraphQLInt },
     description: { type: GraphQLString },
+    projectId: { type: GraphQLID }
   })
 });
 
-// ProjectType
+// Task 3 - ProjectType
 const ProjectType = new GraphQLObjectType({
   name: 'Project',
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     weight: { type: GraphQLInt },
+    description: { type: GraphQLString },
+    tasks: {
+      type: new GraphQLList(TaskType),
+      resolve(parent, args) {
+        return _.filter(tasks, { projectId: parent.id });
+      }
+    }
   })
 });
 
