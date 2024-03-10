@@ -6,7 +6,7 @@ const schema = require('./schema/schema');
 const { TaskType } = require('./schema/schema');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/Cluster0', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/Cluster0');
 
 mongoose.connection.once('open', () =>
   console.log('connected to database')
