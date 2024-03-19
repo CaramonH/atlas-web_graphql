@@ -1,8 +1,0 @@
-mutation {
-  addProject(title: "New Project", weight: 1, description: "Project Description") {
-    id
-    title
-    weight
-    description
-  }
-}
